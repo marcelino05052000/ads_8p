@@ -19,6 +19,8 @@ const storage = multer.diskStorage({
       uploadPath += "videos/";
     } else if (tipo === "imagem") {
       uploadPath += "images/";
+    } else if (tipo === "audio") {
+      uploadPath += "audios/";
     } else {
       uploadPath += "documents/";
     }
