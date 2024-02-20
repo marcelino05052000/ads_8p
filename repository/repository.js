@@ -6,14 +6,14 @@ const pool = new Pool({
   host: "localhost",
   database: "ads",
   password: "postgres",
-  port: 5433,
+  port: 5432,
 });
 
 class DocumentoRepository {
-  async adicionarDocumento(nome, tipo, conteudo) {
+  async adicionarDocumento(nome, conteudo) {
     const result = await pool.query(
-      "INSERT INTO documentos (nome, tipo, conteudo) VALUES ($1, $2, $3) RETURNING *",
-      [nome, tipo, conteudo]
+      "INSERT INTO documentos (nome, conteudo) VALUES ($1, $2) RETURNING *",
+      [nome, conteudo]
     );
     return result.rows[0];
   }
@@ -35,10 +35,10 @@ class DocumentoRepository {
     return result.rows[0];
   }
 
-  async editarDocumento(id, nome, tipo, conteudo) {
+  async editarDocumento(id, nome, conteudo) {
     const result = await pool.query(
-      "UPDATE documentos SET nome=$1, tipo=$2, conteudo=$3 WHERE id=$4 RETURNING *",
-      [nome, tipo, conteudo, id]
+      "UPDATE documentos SET nome=$1, conteudo=$2 WHERE id=$3 RETURNING *",
+      [nome, conteudo, id]
     );
     return result.rows[0];
   }
